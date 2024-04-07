@@ -28,7 +28,7 @@ export class Game {
       }
 
       for (const move of this.availableMoves()) { // draw dots on possible squares
-        // So it just draws it 1 time
+        // Checks for promotion possible moves so it just draws it 1 time
         if (move.promotion && move.promotion !== "q") {
           continue;
         }
@@ -76,8 +76,6 @@ export class Game {
           gameWinner = "Nobody";
         }
         alert(`${gameWinner} wins!`);
-        // this.chess.reset();
-        // this.event.chessboard.setPosition(this.chess.fen(), true);
         this.event.chessboard.disableMoveInput();
       }
     }

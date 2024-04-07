@@ -21,12 +21,10 @@ const game = new Game(chess, board)
 
 export default class extends Controller {
   connect() {
-    //this.element.textContent = "Hello World!"
     board.enableMoveInput(this.inputHandler)
   }
 
   inputHandler(event) {
-    //console.log("inputHandler", event)
     return game.setEvent(event)
   }
 }
