@@ -104,4 +104,14 @@ export class Game {
   validateMoveInput() {
     return this.event.type === INPUT_EVENT_TYPE.validateMoveInput;
   }
+
+  makeFirstMove(move) {
+    const composedMove = { from: move.slice(0, 2), to: move.slice(2, 4), promotion: move.slice(4) }
+    this.chess.move(composedMove);
+
+    this.board.state.moveInputProcess.then(() => { // wait for the move input process has finished
+      this.board.setPosition(this.chess.fen(), true).then(() => { // update position, maybe castled and wait for animation has finished
+      });
+    });
+  }
 }

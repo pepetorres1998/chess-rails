@@ -8,7 +8,6 @@ import { Game } from "../src/game.js"
 const chess = new Chess()
 
 const board = new Chessboard(document.getElementById("board"), {
-  position: FEN.start,
   responsive: true,
   assetsUrl: "./assets/",
   extensions: [
@@ -20,11 +19,27 @@ const board = new Chessboard(document.getElementById("board"), {
 const game = new Game(chess, board)
 
 export default class extends Controller {
+  static values = {
+    fen: String,
+    movesArray: Array
+  }
+
   connect() {
+    board.setPosition(this.fenValue)
+    chess.load(this.fenValue)
+    board.setOrientation(this.boardOrientation(chess.turn()))
+    setTimeout(() => {
+      game.makeFirstMove(this.movesArrayValue[0]);
+    }, 500);
+
     board.enableMoveInput(this.inputHandler)
   }
 
   inputHandler(event) {
     return game.setEvent(event)
+  }
+
+  boardOrientation(value) {
+    return value === "w" ? "b" : "w";
   }
 }
